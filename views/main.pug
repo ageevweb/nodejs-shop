@@ -1,4 +1,8 @@
 include header
 
 .maincontent
-  .wewe qqqwweerr
+  .wewe 
+    each val, index in goods
+      p #{val['name']}
+      img(src='images/'+val['image'])
+      p #{val['cost']}
