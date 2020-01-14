@@ -2,8 +2,8 @@ include header
 
 .wrapper
   include side-menu
-  .wewe 
-    each val, index in goods
-      p #{val['name']}
-      img(src='images/'+val['image'])
-      p #{val['cost']}
+  
+  each val, index in goods
+    p #{val['name']}
+    img(src='images/'+val['image'])
+    p #{val['cost']}

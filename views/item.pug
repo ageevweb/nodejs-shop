@@ -1,0 +1,6 @@
+li.category__item
+  a.item__title(href="#") #{val['name']}
+  a.item__img-link(href="#")
+    img(src='images/'+val['image'])
+  .item__cost #{val['cost'].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')} $
+  button.item__btn(data-goods_id=val['id']) add to cart

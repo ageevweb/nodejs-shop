@@ -108,6 +108,7 @@ li{
 
 .category__item{
   width: 272px;
+  background-color: #fff;
   margin-bottom: 40px;
   padding: 15px;
   border: 1px solid darkgoldenrod;
@@ -119,9 +120,12 @@ li{
   max-height: 300px;
 }
 
-/* .item__title{
-  color: #455a64;
-} */
+.item__title{
+  display: block;
+  min-height: 36px;
+  text-align: center;
+  margin-bottom: 20px;
+}
 
 .item__cost{
   text-align: center;
