@@ -136,3 +136,8 @@ li{
   margin: 0 auto;
 }
 
+
+.single{
+  display: flex;
+  flex-direction: row;
+}

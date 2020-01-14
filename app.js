@@ -13,15 +13,16 @@ let con = mysql.createConnection({
   database: 'datalist'
 });
 
-
 app.listen(3000, function(){
   console.log('node express works on 3000');
 });
 
 
+
+// main page
 app.get('/', function(req, res){
   con.query('SELECT * FROM goods', function(error, result){
-      if (error) throw err;
+      if (error) throw error;
       // console.log(result);
 
       // repack obj important
@@ -52,7 +53,7 @@ app.get('/category', function(req, res){
     con.query(
       'SELECT * FROM category WHERE id='+catId, 
       function(error, result){
-        if (error) reject(err);
+        if (error) reject(error);
         resolve(result);
       });
   });
@@ -61,17 +62,34 @@ app.get('/category', function(req, res){
     con.query(
       'SELECT * FROM goods WHERE category='+catId, 
       function(error, result){
-        if (error) reject(err);
+        if (error) reject(error);
         resolve(result);
       });
   });
 
   Promise.all([cat, goods]).then(function(value){
-
     res.render('category', {
       title: value[0][0]['category'],
       cat: JSON.parse(JSON.stringify(value[0])),
       goods: JSON.parse(JSON.stringify(value[1]))
+    });
+  });
+});
+
+
+
+// single-item page
+app.get('/item', function(req, res){
+  let itemId = req.query.id;
+
+  con.query('SELECT * FROM goods WHERE id='+itemId, 
+  
+  function(error, result, fields){
+    if (error) reject(error);
+
+    res.render('single', {
+      title: result[0]['name'],
+      item: JSON.parse(JSON.stringify(result))
     });
   });
 });
