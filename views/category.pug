@@ -1,6 +1,8 @@
 include header
 
 .wrapper
+  include side-menu
+  
   .container
     h2.category__title #{cat[0]['category']}
 
@@ -10,4 +12,4 @@ include header
 
     .category__desc #{cat[0]['description']}
 
-include footer
+include footer 

@@ -32,7 +32,7 @@ app.get('/', function(req, res){
       }
       // console.log(goods[5]['name'])
       res.render('main', {
-        title: 'titleFIRST',
+        title: 'Home',
         goods: JSON.parse(JSON.stringify(goods))
       });
       // console.log(JSON.parse(JSON.stringify(goods)));
@@ -91,6 +91,14 @@ app.get('/item', function(req, res){
       title: result[0]['name'],
       item: JSON.parse(JSON.stringify(result))
     });
+  });
+});
+
+
+app.post('/get-category-list', function(req,res){
+  con.query('SELECT id, category FROM category', function(error, result, fields){
+    if (error) throw error;
+    res.json(result);
   });
 });
 
