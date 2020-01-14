@@ -23,7 +23,7 @@ app.get('/', function(req, res){
   con.query('SELECT * FROM goods', function(error, result){
       if (error) throw err;
       // console.log(result);
-      
+
       // repack obj important
       let goods = {};
       for(let i=0; i<result.length; i++){
@@ -37,7 +37,43 @@ app.get('/', function(req, res){
       // console.log(JSON.parse(JSON.stringify(goods)));
     }
   );
-  
+});
+
+
+
+// category page
+app.get('/category', function(req, res){
+
+  // console.log(req.query.id);
+
+  let catId = req.query.id;
+
+  let cat = new Promise(function(resolve, reject){
+    con.query(
+      'SELECT * FROM category WHERE id='+catId, 
+      function(error, result){
+        if (error) reject(err);
+        resolve(result);
+      });
+  });
+
+  let goods = new Promise(function(resolve, reject){
+    con.query(
+      'SELECT * FROM goods WHERE category='+catId, 
+      function(error, result){
+        if (error) reject(err);
+        resolve(result);
+      });
+  });
+
+  Promise.all([cat, goods]).then(function(value){
+
+    res.render('category', {
+      title: value[0][0]['category'],
+      cat: JSON.parse(JSON.stringify(value[0])),
+      goods: JSON.parse(JSON.stringify(value[1]))
+    });
+  });
 });
 
 

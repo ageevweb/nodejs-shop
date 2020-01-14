@@ -1,0 +1,21 @@
+include header
+
+.wrapper
+  .category
+    
+    .container
+      h2.category__title #{cat[0]['category']}
+
+      ul.category__list
+        each val, index in goods
+          li.category__item
+            a.item__title(href="#") #{val['name']}
+            a.item__img-link(href="#")
+              img(src='images/'+val['image'])
+            //- p #{val['description']}
+            .item__cost #{val['cost']} $
+            button.item__btn(data-goods_id=val['id']) add to cart
+
+      .category__desc #{cat[0]['description']}
+
+  
