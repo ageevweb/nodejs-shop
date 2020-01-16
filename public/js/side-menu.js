@@ -1,7 +1,5 @@
 getCategoryList();
 
-
-
 function getCategoryList(){
   fetch('get-category-list',{
     method: 'POST'
@@ -17,7 +15,6 @@ function getCategoryList(){
 
 function showCategoryList(data){
   let out = '';
-
   for(i=0; i < data.length; i++){
     out+=`<li><a href="/category?id=${data[i]['id']}">${data[i]['category']}</a></li>`
   }

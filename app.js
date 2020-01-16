@@ -23,23 +23,32 @@ app.listen(3000, function(){
 
 // main page
 app.get('/', function(req, res){
-  con.query('SELECT * FROM goods', function(error, result){
-      if (error) throw error;
-      // console.log(result);
-
-      // repack obj important
-      let goods = {};
-      for(let i=0; i<result.length; i++){
-        goods[result[i]['id']] = result[i];
-      }
-      // console.log(goods[5]['name'])
-      res.render('main', {
-        title: 'Home',
-        goods: JSON.parse(JSON.stringify(goods))
+  
+  let cat = new Promise(function(resolve, reject){
+    con.query(
+      "select id,name, cost, image, category from (select id,name,cost,image,category, if(if(@curr_category != category, @curr_category := category, '') != '', @k := 0, @k := @k + 1) as ind   from goods, ( select @curr_category := '' ) v ) goods where ind < 4", 
+      function(error, result){
+        if (error) reject(error);
+        resolve(result);
       });
-      // console.log(JSON.parse(JSON.stringify(goods)));
-    }
-  );
+  });
+
+  let catDescr = new Promise(function(resolve, reject){
+    con.query(
+      'SELECT * FROM category', 
+      function(error, result){
+        if (error) reject(error);
+        resolve(result);
+      });
+  });
+
+  Promise.all([cat, catDescr]).then(function(value){
+    res.render('main', {
+      title: 'Home',
+      cat: JSON.parse(JSON.stringify(value[1])),
+      goods: JSON.parse(JSON.stringify(value[0]))
+    });
+  });
 });
 
 

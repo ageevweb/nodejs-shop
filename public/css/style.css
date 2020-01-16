@@ -152,3 +152,8 @@ li{
 .side-menu__block{
   margin-bottom: 20px;
 }
+
+.goods-container__items{
+  display: flex;
+  justify-content: space-around;
+}
