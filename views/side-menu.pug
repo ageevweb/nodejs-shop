@@ -1,20 +1,34 @@
 .side-menu
+  .side-menu__wrap
+    .side-menu__close
+      <svg viewBox="0 0 32 32" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <path d="M28,14H18V4c0-1.104-0.896-2-2-2s-2,0.896-2,2v10H4c-1.104,0-2,0.896-2,2s0.896,2,2,2h10v10c0,1.104,0.896,2,2,2  s2-0.896,2-2V18h10c1.104,0,2-0.896,2-2S29.104,14,28,14z"/>
+      </svg>
 
-  .side-menu__block
-    h3.side-menu__title Categories
-    ul.side-menu__links
+    .side-menu__block
+      h3.side-menu__title Categories
+      ul.side-menu__links
 
-  .side-menu__block
-    h3.side-menu__title Pages
-    ul.side-menu__pages
-      li.page-link
-        a(href="/") Home
-      li.page-link
-        a(href="/contacts") Contacts
-      li.page-link
-        a(href="/possibilities") Possibilities
+    .side-menu__block
+      h3.side-menu__title Pages
+      ul.side-menu__pages
+        li.page-link
+          a(href="/") Home
+        li.page-link
+          a(href="/contacts") Contacts
+        li.page-link
+          a(href="/possibilities") Possibilities
 
-  .side-menu__block
-    h3.side-menu__title Cart
-    .side-menu__cart
+    .side-menu__block
+      h3.side-menu__title Cart
+      .side-menu__cart
+      button.btn.side-menu__toCart
+        .toCart__icon
+          <svg viewBox="1 -1 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <path d="M74,70.7c-5.7,0-10.4,4.6-10.4,10.4c0,5.7,4.6,10.4,10.4,10.4c5.7,0,10.4-4.6,10.4-10.4c0,0,0,0,0,0   C84.3,75.4,79.7,70.7,74,70.7z"/>
+            <path d="M92.3,21.1c-0.2,0-0.5-0.1-0.8-0.1H28.5l-1-6.7c-0.6-4.4-4.4-7.7-8.9-7.7h-8.1c-2.2,0-4,1.8-4,4s1.8,4,4,4h8.1   c0.5,0,0.9,0.4,1,0.9l6.2,42.2C26.6,63,31.2,67,36.6,67h41.6c5.2,0,9.7-3.7,10.8-8.8l6.5-32.5C95.9,23.6,94.5,21.5,92.3,21.1z"/>
+            <path d="M38.2,70.7C32.4,71,28,75.8,28.2,81.5c0.2,5.5,4.7,9.9,10.2,9.9h0.2c5.7-0.3,10.2-5.1,9.9-10.8   C48.3,75.1,43.7,70.7,38.2,70.7z"/>
+          </svg>
+        .toCart__text Order
+
     

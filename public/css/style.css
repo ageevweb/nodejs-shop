@@ -1,15 +1,48 @@
 *{
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', Helvetica, sans-serif;
+  font-family: 'Quicksand', sans-serif;
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #455a64
+  color: #000;
+  font-weight: 500;
+}
+
+body{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 li{
   list-style-type: none;
+}
+
+
+::-webkit-scrollbar{
+  width: 10px;
+  cursor: pointer;
+
+}
+
+::-webkit-scrollbar-track{
+  background-color: #fff;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  border-radius: 8px;
+  cursor: pointer;
+
+}
+
+::-webkit-scrollbar-thumb{
+  background-color: #000;
+  border-radius: 7px;
+  transition: all ease .5s;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb:hover{
+  background-color: grey;
 }
 
 .container{
@@ -19,7 +52,7 @@ li{
 }
 
 .header{
-  background-color: grey;
+  background-color: #000;
 }
 
 .header__container{
@@ -74,7 +107,7 @@ li{
 .logo{
   font-size: 45px;
   padding-left: 50px;
-  font-weight: 700;
+  font-weight: 500;
   color: #fff;
 }
 
@@ -87,20 +120,37 @@ li{
 }
 
 .wrapper{
-  background-color: lavender;
+  background-color: #fff;
   position: relative;
+  flex: 1;
+  
+}
 
+.wrapper:after{
+  content: '';
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  position: absolute;
+  z-index: 10;
+  opacity: .8;
+  cursor: pointer;
 }
 
 .side-menu{
   width: 400px;
   min-height: 400px;
-  border: 1px solid burlywood;
-  background-color: antiquewhite;
+  max-height: 75vh;
+  background-color: #f3f3f3;
   padding: 30px;
   border-radius: 0px 20px 20px 0;
   position: absolute;
   top: 0;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  z-index: 20;
+  padding-right: 0;
 }
 
 /* item */
@@ -115,8 +165,14 @@ li{
   background-color: #fff;
   margin-bottom: 40px;
   padding: 15px;
-  border: 1px solid darkgoldenrod;
+  transition: all ease .5s;
+  border: 1px solid #fff;
   border-radius: 10px;
+}
+
+.category__item:hover{
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  z-index: 5;
 }
 
 .item__img-link img{
@@ -150,10 +206,151 @@ li{
 /*transition: all ease 1s */
 
 .side-menu__block{
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
 .goods-container__items{
   display: flex;
   justify-content: space-around;
+}
+
+.footer{
+  background-color: #000;
+}
+
+.footer-container{
+  padding: 30px 15px;
+}
+
+.rights{
+  color: #fff;
+}
+
+
+.side-menu__title{
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 5px;
+}
+
+
+.cart-item__left{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 120px;
+}
+
+.cart-item{
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #000;
+}
+
+.cart-item__title{
+  margin-bottom: 9px;
+}
+
+.cart-item__minus{
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid #000;
+  position: relative;
+  cursor: pointer;
+}
+
+.cart-item__minus svg,
+.cart-item__plus svg{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+}
+
+.cart-item__plus{
+  width: 30px;
+  height: 30px;
+  background-color: #fff;
+  border-radius: 50%;
+  border: 2px solid #000;
+  position: relative;
+  cursor: pointer;
+
+}
+
+.cart-item__row{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+
+.btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  min-width: 160px;
+  border-radius: 25px;
+  background-color: #000;
+  margin-top: 30px;
+  cursor: pointer;
+  transition: all ease .5s;
+  border: none;
+}
+
+.toCart__icon svg{
+  width: 25px;
+  height: 25px;
+  fill: #fff;
+
+}
+
+.toCart__text{
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+
+}
+
+.btn:hover{
+  background-color: #fff;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.btn:hover .toCart__text{
+  color: #000;
+}
+
+.btn:hover .toCart__icon svg{
+  fill: #000;
+}
+
+.side-menu__close{
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  transform: rotate(45deg);
+}
+
+.side-menu__close svg{
+  width: 40px;
+  height: 40px;
+  fill: #000;
+  cursor: pointer;
+}
+
+
+.side-menu__wrap{
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 30px;
 }

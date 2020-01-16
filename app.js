@@ -133,4 +133,10 @@ app.post('/get-goods-info', function(req,res){
 });
 
 
+app.get('/order', function(req, res){
+    res.render('order', {
+      title: 'Order'
+    });
+});
+
 
