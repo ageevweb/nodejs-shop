@@ -1,16 +1,15 @@
-include header
-  .black-background
+extends index.pug
+block content
 
-.maincontent
-  include side-menu
-  
-  .container
-    h2.category__title #{cat[0]['category']}
+  .maincontent
+    .maincontent__black-background
+    include side-menu
 
-    ul.category__list
-      each val, index in goods
-        include item
+    .container
+      h2.category__title #{cat[0]['category']}
 
-    .category__desc #{cat[0]['description']}
+      ul.category__list
+        each val, index in goods
+          include item
 
-include footer 
+      .category__desc #{cat[0]['description']}

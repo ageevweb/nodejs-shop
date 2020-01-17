@@ -109,21 +109,17 @@ function formatPrice(price){
 
 
 // side-menu
-// document.querySelector('.hamburger-menu').onclick = function(){
-//   document.querySelector('.wrapper').classList.toggle('side-menu-show');
-// }
+document.querySelector('.hamburger-menu').onclick = function(){
+  document.querySelector('.wrapper').classList.toggle('side-menu-show');
+}
 
-// document.onkeydown = function(e){
-//   if( e.keyCode == 27 ){
-//     document.querySelector('.wrapper').classList.remove('side-menu-show');
-//   }
-// }
+document.onkeydown = function(e){
+  if( e.keyCode == 27 ){
+    document.querySelector('.wrapper').classList.remove('side-menu-show');
+  }
+}
 
-// document.querySelector('.wrapper:after').onclick = function(){
-//   document.querySelector('.wrapper').classList.remove('side-menu-show');
-// }
-
-// document.querySelector('.side-menu__close').onclick = function(){
-//   document.querySelector('.wrapper').classList.remove('side-menu-show');
-// }
+document.querySelector('.maincontent__black-background').onclick = function(){
+  document.querySelector('.wrapper').classList.remove('side-menu-show');
+}
 

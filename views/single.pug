@@ -1,14 +1,14 @@
-include header
+extends index.pug
+block content
 
-.maincontent
-  .container
-    .single
-      .single__left
-        img(src='images/'+item[0]['image'])
-      .single__right
-        h2.single__title #{item[0]['name']}
-        p.single__desc #{item[0]['description']}
-        span.single__cost #{item[0]['cost'].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')} $
-        button.item__btn(data-goods_id=item[0]['id']) add to cart
-
-include footer
+  .maincontent
+    .maincontent__black-background
+    .container
+      .single
+        .single__left
+          img(src='images/'+item[0]['image'])
+        .single__right
+          h2.single__title #{item[0]['name']}
+          p.single__desc #{item[0]['description']}
+          span.single__cost #{item[0]['cost'].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')} $
+          button.item__btn(data-goods_id=item[0]['id']) add to cart
