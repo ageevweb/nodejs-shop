@@ -106,3 +106,24 @@ function updateLS(){
 function formatPrice(price){
   return price.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')
 }
+
+
+// side-menu
+// document.querySelector('.hamburger-menu').onclick = function(){
+//   document.querySelector('.wrapper').classList.toggle('side-menu-show');
+// }
+
+// document.onkeydown = function(e){
+//   if( e.keyCode == 27 ){
+//     document.querySelector('.wrapper').classList.remove('side-menu-show');
+//   }
+// }
+
+// document.querySelector('.wrapper:after').onclick = function(){
+//   document.querySelector('.wrapper').classList.remove('side-menu-show');
+// }
+
+// document.querySelector('.side-menu__close').onclick = function(){
+//   document.querySelector('.wrapper').classList.remove('side-menu-show');
+// }
+
