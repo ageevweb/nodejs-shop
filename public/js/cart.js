@@ -12,6 +12,19 @@ if(localStorage.getItem('cart')){
 
 
 function addToCart(){
+
+  // if( document.querySelector('.hamburger-menu').classList.contains('rot')){
+  //   document.querySelector('.hamburger-menu').classList.remove('rot');
+  // }
+
+  document.querySelector('.hamburger-menu').classList.add('rot');
+
+  function deleteAnimation() {
+    document.querySelector('.hamburger-menu').classList.remove('rot')
+  }
+  
+  setTimeout(deleteAnimation, 900);
+
   let id = this.getAttribute('data-goods_id');
   if(cart[id]){
     cart[id]++
@@ -20,6 +33,10 @@ function addToCart(){
   }
   console.log(cart);
   ajaxGetGoodsInfo();
+  // document.querySelector('.hamburger-menu').classList.remove('rot')
+
+  
+
 }
 
 

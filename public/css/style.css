@@ -426,3 +426,26 @@ li{
 .side-menu-show>.header>.header__container>.hamburger-menu>.hamburger-menu__btn>.circle {
   opacity: 1;
 } 
+
+
+
+.rot {
+  animation:  900ms cubic-bezier(0.175, 0.885, 0.32, 1.275) normal running rot;
+  -webkit-animation:  900ms cubic-bezier(0.175, 0.885, 0.32, 1.275) normal  running rot;
+}
+@keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
