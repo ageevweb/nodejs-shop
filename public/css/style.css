@@ -449,3 +449,55 @@ li{
     transform: rotate(360deg);
   }
 }
+
+
+
+/* order */
+
+.form{
+  max-width: 500px;
+}
+
+.form__item{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+label{
+  margin-bottom: 7px;
+  color: darkgray;
+}
+
+.form-input, textarea{
+  font-size: 16px;
+  padding: 13px;
+  border: 2px solid #d9dddc;
+  border-radius: 27px;
+  font-weight: 600;
+  outline: none;
+  resize: none;
+}
+
+
+.order-btn{
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+}
+
+.order-btn:hover{
+  color: #000;
+}
+
+.input-error{
+  position: absolute;
+  font-weight: 600;
+  color: #fff;
+  background-color: #ef5550;
+  padding: 5px 10px;
+  border-radius: 20px;
+  top: 36px;
+  right: -190px;
+}

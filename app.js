@@ -11,8 +11,8 @@ let mysql = require('mysql');
 let con = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: 'password',
-  database: 'datalist'
+  password: '',
+  database: 'lite_shop'
 });
 
 app.listen(3000, function(){
@@ -140,3 +140,25 @@ app.get('/order', function(req, res){
 });
 
 
+
+app.post('/finish-order', function(req,res){
+  console.log(req.body);
+  res.send('1')
+  if(req.body.key.length != 0){
+
+    let key = Object.keys(req.body.key)
+
+    con.query('SELECT id,name,cost FROM goods WHERE id IN ('+key.join(',')+')', function(error, result, fields){
+      if (error) throw error;
+      sendMail(req.body, result).catch(console(error))
+      res.send('1');
+    });
+  } else {
+    res.send('0');
+  }
+});
+
+
+function sendMail(data, result){
+
+}

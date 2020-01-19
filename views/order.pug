@@ -6,4 +6,39 @@ block content
     .maincontent__black-background
     include side-menu
     
-    .container e3
+    .container
+      h1 CART
+      .order-cart
+
+      <hr>
+
+      h1.section-title
+
+      form.form
+        .form__item
+          .input-error input error bla bla bla
+          label(for="#order-name") Name
+          input#order-name.form-input(placeholder="Enter your name")
+        .form__item
+          .input-error input error bla bla bla
+          label(for="#order-phone") Phone
+          input#order-phone.form-input(placeholder="+7(999)999-99-99")
+
+        .form__item
+          .input-error input error bla bla bla
+          label(for="#order-email") Email
+          input#order-email.form-input(placeholder="mail@gmail.com")
+
+        .form__item
+          .input-error input error bla bla bla
+          label(for="#order-address") Address
+          textarea#order-address(rows="5" placeholder="Where are you?")
+
+        input#order-check(type="checkbox", name="")
+
+        button#order-submit.btn.order-btn Finish order
+
+
+
+  script(src="js/order.js")
+          

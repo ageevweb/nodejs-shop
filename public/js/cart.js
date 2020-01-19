@@ -12,11 +12,6 @@ if(localStorage.getItem('cart')){
 
 
 function addToCart(){
-
-  // if( document.querySelector('.hamburger-menu').classList.contains('rot')){
-  //   document.querySelector('.hamburger-menu').classList.remove('rot');
-  // }
-
   document.querySelector('.hamburger-menu').classList.add('rot');
 
   function deleteAnimation() {
@@ -33,9 +28,6 @@ function addToCart(){
   }
   console.log(cart);
   ajaxGetGoodsInfo();
-  // document.querySelector('.hamburger-menu').classList.remove('rot')
-
-  
 
 }
 
@@ -66,7 +58,7 @@ function showCart(data){
 
   for(let key in cart){
     out += `<div class="cart-item">
-              <div class="cart-item__title"> ${data[key]['name']}</div>
+              <a class="cart-item__title" href='/item?id=${data[key]['id']}'> ${data[key]['name']}</a>
               <div class="cart-item__row"> 
                 <div class="cart-item__left">
                   <div class="cart-item__minus" data-goods_id="${data[key]['id']}">
@@ -90,6 +82,10 @@ function showCart(data){
   }
   out += `<div class="cart-item__totalSumm">total summ: $ ${formatPrice(total)}</div>`
   document.querySelector('.side-menu__cart').innerHTML = out;
+
+  if(document.querySelector('.order-cart')){
+    document.querySelector('.order-cart').innerHTML = out;
+  }
 
   document.querySelectorAll('.cart-item__minus').forEach(elem => {
     elem.onclick = cartMinus;
