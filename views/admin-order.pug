@@ -18,6 +18,9 @@ block content
           .order-table__cell.order-table__goods_cost Goods cost
           .order-table__cell.order-table__goods_amount Goods amount
           .order-table__cell.order-table__total Total
+          .order-table__cell.order-table__user User
+          .order-table__cell.order-table__phone Phone
+          .order-table__cell.order-table__address Address
         .order-table__list
           each val, index in order
             li.order-table__item
@@ -28,8 +31,9 @@ block content
               .order-table__cell.order-table__goods_cost #{val['goods_cost'].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')}
               .order-table__cell.order-table__goods_amount #{val['goods_amount']}
               .order-table__cell.order-table__total #{val['total'].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')}
-
-
+              .order-table__cell.order-table__total #{val['user']}
+              .order-table__cell.order-table__total #{val['phone']}
+              .order-table__cell.order-table__total #{val['address']}
 
 
           
