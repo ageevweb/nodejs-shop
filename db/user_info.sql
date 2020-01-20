@@ -1,0 +1,1 @@
+SELECT * FROM datalist.user_info;

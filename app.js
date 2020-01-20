@@ -10,12 +10,23 @@ const nodemailer = require('nodemailer');
 
 // add mysql modul : npm install mysql
 let mysql = require('mysql');
-let con = mysql.createConnection({
+
+// let con = mysql.createConnection({
+
+let con = mysql.createPool({
   host: 'localhost',
   user: 'root',
   password: 'password',
   database: 'datalist'
 });
+
+
+// delete on prod
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
+
+
+
 
 app.listen(3000, function(){
   console.log('node express works on 3000');
@@ -145,7 +156,6 @@ app.get('/order', function(req, res){
 
 app.post('/finish-order', function(req,res){
   // console.log(req.body);
-  res.send('1')
   if(req.body.key.length != 0){
 
     let key = Object.keys(req.body.key)
@@ -154,7 +164,8 @@ app.post('/finish-order', function(req,res){
     function(error, result, fields){
       if (error) throw error;
       sendMail(req.body, result).catch(console.error);
-      // res.send('1');
+      saveOrder(req.body, result);
+      res.send('1');
     });
   } else {
     res.send('0');
@@ -205,4 +216,30 @@ async function sendMail(data, result){
   console.log("MessageSent: %s", info.messageId);
   console.log("PreviewSent: %s", nodemailer.getTestMessageUrl(info));
   return true;
+}
+
+
+
+
+
+function saveOrder(data, result) {
+  // data - info about user
+  // result info about goods
+
+  let sql;
+  sql = "INSERT INTO user_info (user_name, user_phone, user_email,address) VALUES ('" + data.userName + "', '" + data.userPhone + "', '" + data.userEmail + "','" + data.userAddress + "')";
+  con.query(sql, function (error, resultQuery) {
+    if (error) throw error;
+    console.log("1 user record inserted");
+
+    let userId = resultQuery.insertId;
+    date = new Date() / 1000;
+    for (let i = 0; i < result.length; i++) {
+      sql = "INSERT INTO shop_order (date, user_id, goods_id, goods_cost, goods_amount, total) VALUES (" + date + "," + userId +","+ result[i]['id'] + ", " + result[i]['cost'] + "," + data.key[result[i]['id']] + ", " + data.key[result[i]['id']] * result[i]['cost'] + ")";
+      con.query(sql, function (error, resultQuery) {
+        if (error) throw error;
+        console.log("1 record inserted");
+      });
+    }
+  });
 }
