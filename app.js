@@ -249,6 +249,10 @@ app.get('/admin', function(req, res){
   });
 });
 
+app.post('/admin', function(req, res){
+  res.end('work')
+});
+
 
 app.get('/admin-order', function(req, res){
   con.query(`
@@ -274,5 +278,13 @@ app.get('/admin-order', function(req, res){
       title: 'admin-order',
       order: JSON.parse(JSON.stringify(result))
     });
+  });
+});
+
+
+
+app.get('/login', function(req, res){
+  res.render('login', {
+    title: 'login'
   });
 });
