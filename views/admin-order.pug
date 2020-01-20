@@ -1,0 +1,38 @@
+extends index.pug
+block content
+
+  .maincontent
+    .maincontent__black-background
+    include side-menu
+
+    .container
+      h1 Admin-panel
+      h2 Order information
+
+      .order-table
+        .order-table__row
+          .order-table__cell.order-table__id Order#
+          .order-table__cell.order-table__date Date
+          .order-table__cell.order-table__user_id User id
+          .order-table__cell.order-table__goods_id Goods id
+          .order-table__cell.order-table__goods_cost Goods cost
+          .order-table__cell.order-table__goods_amount Goods amount
+          .order-table__cell.order-table__total Total
+        .order-table__list
+          each val, index in order
+            li.order-table__item
+              .order-table__cell.order-table__id #{val['id']}
+              .order-table__cell.order-table__date #{val['human_date']}
+              .order-table__cell.order-table__user_id #{val['user_id']}
+              .order-table__cell.order-table__goods_id #{val['goods_id']}
+              .order-table__cell.order-table__goods_cost #{val['goods_cost'].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')}
+              .order-table__cell.order-table__goods_amount #{val['goods_amount']}
+              .order-table__cell.order-table__total #{val['total'].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')}
+
+
+
+
+          
+          
+          
+      

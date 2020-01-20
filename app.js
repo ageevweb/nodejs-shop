@@ -89,6 +89,7 @@ app.get('/category', function(req, res){
         if (error) reject(error);
         resolve(result);
       });
+
   });
 
   Promise.all([cat, goods]).then(function(value){
@@ -218,10 +219,6 @@ async function sendMail(data, result){
   return true;
 }
 
-
-
-
-
 function saveOrder(data, result) {
   // data - info about user
   // result info about goods
@@ -243,3 +240,23 @@ function saveOrder(data, result) {
     }
   });
 }
+
+
+
+app.get('/admin', function(req, res){
+  res.render('admin', {
+    title: 'admin'
+  });
+});
+
+
+app.get('/admin-order', function(req, res){
+  con.query('SELECT *,  from_unixtime(date, "%Y-%m-%d %h:%m")as human_date FROM shop_order ORDER BY id DESC', 
+  function(error, result, fields){
+    if (error) reject(error);
+    res.render('admin-order', {
+      title: 'admin-order',
+      order: JSON.parse(JSON.stringify(result))
+    });
+  });
+});
