@@ -154,7 +154,7 @@ app.post('/finish-order', function(req,res){
     function(error, result, fields){
       if (error) throw error;
       sendMail(req.body, result).catch(console.error);
-      res.send('1');
+      // res.send('1');
     });
   } else {
     res.send('0');
@@ -171,7 +171,7 @@ async function sendMail(data, result){
     res += `<p>${result[i]['name']} - ${data.key[result[i]['id']]} - $ ${result[i]['cost'] * data.key[result[i]['id']]} </p>`;
     total += result[i]['cost'] * data.key[result[i]['id']];
   }
-  // console.log(res);
+
   res += `
     <div>Total:  $ ${total}</div> 
     <div>Phone:  ${data.userPhone}</div> 
