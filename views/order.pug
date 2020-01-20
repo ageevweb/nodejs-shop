@@ -18,25 +18,26 @@ block content
         .form__item
           .input-error input error bla bla bla
           label(for="#order-name") Name
-          input#order-name.form-input(placeholder="Enter your name")
+          input#order-name.form-input(placeholder="Enter your name" value="Andrey")
         .form__item
           .input-error input error bla bla bla
           label(for="#order-phone") Phone
-          input#order-phone.form-input(placeholder="+7(999)999-99-99")
+          input#order-phone.form-input(placeholder="+7(999)999-99-99" value="+7(999)220-22-22")
 
         .form__item
           .input-error input error bla bla bla
           label(for="#order-email") Email
-          input#order-email.form-input(placeholder="mail@gmail.com")
+          input#order-email.form-input(placeholder="mail@gmail.com" value="ageevweb@gmail.com")
 
         .form__item
           .input-error input error bla bla bla
           label(for="#order-address") Address
-          textarea#order-address(rows="5" placeholder="Where are you?")
+          textarea#order-address(rows="5" placeholder="Where are you?" value="ferm 8")
 
-        input#order-check(type="checkbox", name="")
+        input#checkbox1(type="checkbox", name="")
+        label(for="checkbox1") agree
 
-        button#order-submit.btn.order-btn Finish order
+        button#order-submit.btn.order-btn Terms and Conditions
 
 
 

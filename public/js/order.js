@@ -6,7 +6,7 @@ document.querySelector('#order-submit').onclick = function(e)  {
     let userPhone = document.querySelector('#order-phone').value.trim();
     let userAddress = document.querySelector('#order-address').value.trim();
 
-    if(!document.querySelector('#order-check').checked){
+    if(!document.querySelector('#checkbox1').checked){
 
     }
 
@@ -32,7 +32,6 @@ document.querySelector('#order-submit').onclick = function(e)  {
         return response.text();
     })
     .then(function(body){
-        // return response.text();
         if (body == 1){
 
         } else {

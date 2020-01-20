@@ -4,15 +4,17 @@ app.use(express.static('public'));
 
 app.set('view engine', 'pug');
 
-app.use(express.json())
+app.use(express.json());
+
+const nodemailer = require('nodemailer');
 
 // add mysql modul : npm install mysql
 let mysql = require('mysql');
 let con = mysql.createConnection({
   host: 'localhost',
   user: 'root',
-  password: '',
-  database: 'lite_shop'
+  password: 'password',
+  database: 'datalist'
 });
 
 app.listen(3000, function(){
@@ -142,15 +144,16 @@ app.get('/order', function(req, res){
 
 
 app.post('/finish-order', function(req,res){
-  console.log(req.body);
+  // console.log(req.body);
   res.send('1')
   if(req.body.key.length != 0){
 
     let key = Object.keys(req.body.key)
 
-    con.query('SELECT id,name,cost FROM goods WHERE id IN ('+key.join(',')+')', function(error, result, fields){
+    con.query('SELECT id,name,cost FROM goods WHERE id IN (' + key.join(',')+')', 
+    function(error, result, fields){
       if (error) throw error;
-      sendMail(req.body, result).catch(console(error))
+      sendMail(req.body, result).catch(console.error);
       res.send('1');
     });
   } else {
@@ -159,6 +162,47 @@ app.post('/finish-order', function(req,res){
 });
 
 
-function sendMail(data, result){
+async function sendMail(data, result){
 
+  let res = '<h2>Order from PrototypeShop</h2>';
+  let total = 0;
+
+  for (let i = 0; i < result.length; i++){
+    res += `<p>${result[i]['name']} - ${data.key[result[i]['id']]} - $ ${result[i]['cost'] * data.key[result[i]['id']]} </p>`;
+    total += result[i]['cost'] * data.key[result[i]['id']];
+  }
+  // console.log(res);
+  res += `
+    <div>Total:  $ ${total}</div> 
+    <div>Phone:  ${data.userPhone}</div> 
+    <div>Name:  ${data.userName}</div> 
+    <div>Address:  ${data.userAddress}</div> 
+    <div>Email:  ${data.userEmail}</div> 
+  `
+  console.log(res);
+
+  let testAccount = await nodemailer.createTestAccount();
+
+  let transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false, // true for 465, false for other ports
+    auth: {
+      user: testAccount.user, // generated ethereal user
+      pass: testAccount.pass // generated ethereal password
+    }
+  });
+
+  let mailOption = {
+    from: '<ageevweb@gmail.com>',
+    to: "ageevweb@gmail.com,"+ data.userEmail,
+    subject: "PrototypeShop order",
+    text: 'hello world 222',
+    html: res
+  };
+
+  let info = await transporter.sendMail(mailOption);
+  console.log("MessageSent: %s", info.messageId);
+  console.log("PreviewSent: %s", nodemailer.getTestMessageUrl(info));
+  return true;
 }
