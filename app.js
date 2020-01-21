@@ -277,6 +277,13 @@ app.get('/admin', function(req, res){
 
 
 app.post('/login', function(req, res){
+
+  con.query('SELECT * FROM user WHERE login="'+req.body.login + '" and password="'+req.body.password+'"',
+  function(error, result, fields){
+  console.log(result);
+    if (error) reject(error);
+  });
+
   res.end('wwork');
   console.log(req.body);
   
