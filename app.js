@@ -1,5 +1,8 @@
 let express = require('express');
 let app = express();
+
+var cookieParser = require('cookie-parser');
+
 app.use(express.static('public'));
 
 app.set('view engine', 'pug');
