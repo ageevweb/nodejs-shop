@@ -277,9 +277,10 @@ app.get('/admin', function(req, res){
 
 
 app.post('/login', function(req, res){
-  res.render('login', {
-    // title: 'admin'
-  });
+  res.end('wwork');
+  console.log(req.body);
+  
+  
 });
 
 
