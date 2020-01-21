@@ -1,7 +1,7 @@
 let express = require('express');
 let app = express();
 
-var cookieParser = require('cookie-parser');
+let cookieParser = require('cookie-parser');
 
 app.use(express.static('public'));
 
@@ -9,6 +9,7 @@ app.set('view engine', 'pug');
 
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(cookieParser());
 
 const nodemailer = require('nodemailer');
 
@@ -27,9 +28,6 @@ let con = mysql.createPool({
 
 // delete on prod
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
-
-
-
 
 
 app.listen(3000, function(){
@@ -104,7 +102,6 @@ app.get('/category', function(req, res){
     });
   });
 });
-
 
 
 // single-item page
@@ -194,7 +191,7 @@ async function sendMail(data, result){
     <div>Address:  ${data.userAddress}</div> 
     <div>Email:  ${data.userEmail}</div> 
   `
-  console.log(res);
+  // console.log(res);
 
   let testAccount = await nodemailer.createTestAccount();
 
@@ -274,9 +271,31 @@ app.get('/admin-order', function(req, res){
 
 
 app.get('/admin', function(req, res){
-  res.render('admin', {
-    // title: 'admin'
-  });
+
+  console.log(req.cookies);
+  console.log(req.cookies.hash);
+  console.log(req.cookies.id);
+
+  // if(req.cookies.hash == undefined || req.cookies.id == undefined){
+  //   res.redirect('/login');
+  //   return false;
+  // }
+
+  con.query(
+    'SELECT * FROM user WHERE id='+req.cookies.id + ' and hash="'+req.cookies.hash + '"',
+    function(error, result, fields){
+      if (error) reject(error);
+      console.log(result);
+
+      if(result.length == 0){
+        console.log('error: user not found');
+        res.redirect('/login');
+      } else {
+        res.render('admin', {
+          title: 'admin'
+        });
+      }
+    });
 });
 
 
@@ -291,7 +310,9 @@ app.post('/login', function(req, res){
     } else {
       // enter user in assount
       result = JSON.parse(JSON.stringify(result));
-      res.cookie('hash', 'blablabla');
+      res.cookie('hash', 'bala123');
+      res.cookie('id', result[0]['id']);
+
       // write hash in db
       sql = "UPDATE user SET hash='bala123' WHERE id="+result[0]['id'];
       con.query(sql, function (error, resultQuery) {
