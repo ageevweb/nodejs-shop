@@ -2,14 +2,20 @@ let express = require('express');
 let app = express();
 
 let cookieParser = require('cookie-parser');
+let admin = require('./admin');
 
 app.use(express.static('public'));
-
 app.set('view engine', 'pug');
-
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cookieParser());
+app.use(function (req, res, next) {
+  if(req.originalUrl == '/admin' || req.originalUrl == '/admi-order'){
+    admin(req, res, con, next);
+  } else {
+    next();
+  }
+});
 
 const nodemailer = require('nodemailer');
 
@@ -259,43 +265,22 @@ app.get('/admin-order', function(req, res){
     LEFT JOIN	
       user_info
     ON shop_order.user_id = user_info.id ORDER BY id DESC`,
-  function(error, result, fields){
-    if (error) reject(error);
-    res.render('admin-order', {
-      title: 'admin-order',
-      order: JSON.parse(JSON.stringify(result))
-    });
-  });
+    function(error, result, fields){
+      if (error) reject(error);
+      res.render('admin-order', {
+        title: 'admin-order',
+        order: JSON.parse(JSON.stringify(result))
+      });
+    }
+  );
 });
 
 
 
 app.get('/admin', function(req, res){
-
-  console.log(req.cookies);
-  console.log(req.cookies.hash);
-  console.log(req.cookies.id);
-
-  // if(req.cookies.hash == undefined || req.cookies.id == undefined){
-  //   res.redirect('/login');
-  //   return false;
-  // }
-
-  con.query(
-    'SELECT * FROM user WHERE id='+req.cookies.id + ' and hash="'+req.cookies.hash + '"',
-    function(error, result, fields){
-      if (error) reject(error);
-      console.log(result);
-
-      if(result.length == 0){
-        console.log('error: user not found');
-        res.redirect('/login');
-      } else {
-        res.render('admin', {
-          title: 'admin'
-        });
-      }
-    });
+  res.render('admin', {
+    title : "admin"
+  })
 });
 
 
@@ -310,11 +295,12 @@ app.post('/login', function(req, res){
     } else {
       // enter user in assount
       result = JSON.parse(JSON.stringify(result));
-      res.cookie('hash', 'bala123');
+      let hash = makeHash(32);
+      res.cookie('hash', hash);
       res.cookie('id', result[0]['id']);
 
       // write hash in db
-      sql = "UPDATE user SET hash='bala123' WHERE id="+result[0]['id'];
+      sql = "UPDATE user SET hash='"+ hash +"' WHERE id="+result[0]['id'];
       con.query(sql, function (error, resultQuery) {
         if (error) throw error;
         res.redirect('/admin');
@@ -332,8 +318,15 @@ app.get('/login', function(req, res){
 
 
 
-
-
+function makeHash(length) {
+  var result           = '';
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+     result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+}
 
 
 
