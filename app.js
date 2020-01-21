@@ -5,6 +5,7 @@ app.use(express.static('public'));
 app.set('view engine', 'pug');
 
 app.use(express.json());
+app.use(express.urlencoded());
 
 const nodemailer = require('nodemailer');
 
@@ -277,17 +278,25 @@ app.get('/admin', function(req, res){
 
 
 app.post('/login', function(req, res){
-
   con.query('SELECT * FROM user WHERE login="'+req.body.login + '" and password="'+req.body.password+'"',
   function(error, result, fields){
-  console.log(result);
     if (error) reject(error);
+    // console.log(result.length);
+    
+    if(result.length == 0){
+      console.log('error user')
+    } else {
+      // enter user in assount
+      result = JSON.parse(JSON.stringify(result));
+      res.cookie('hash', 'blablabla');
+      // write hash in db
+      sql = "UPDATE user SET hash='bala123' WHERE id="+result[0]['id'];
+      con.query(sql, function (error, resultQuery) {
+        if (error) throw error;
+        res.redirect('/admin');
+      });
+    };
   });
-
-  res.end('wwork');
-  console.log(req.body);
-  
-  
 });
 
 
