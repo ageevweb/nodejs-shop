@@ -1,7 +1,9 @@
 
-form(action="/admin", method="POST")
+form.login-form(action="/admin" method="POST")
   label login
-  input(name="login" value="admin")
+  input#login(type="text" name="login" value="admin")
   label password
-  input(type="password" name="password" value="123")
-  input(type="submit")
+  input#password(type="password" name="password" value="123")
+  input(type="submit" value="LogIn")
+
+script(src="js/login.js")

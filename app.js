@@ -173,7 +173,6 @@ app.post('/finish-order', function(req,res){
   }
 });
 
-
 async function sendMail(data, result){
 
   let res = '<h2>Order from PrototypeShop</h2>';
@@ -241,19 +240,6 @@ function saveOrder(data, result) {
   });
 }
 
-
-
-app.get('/admin', function(req, res){
-  res.render('admin', {
-    title: 'admin'
-  });
-});
-
-app.post('/admin', function(req, res){
-  res.end('work')
-});
-
-
 app.get('/admin-order', function(req, res){
   con.query(`
     SELECT 
@@ -283,8 +269,30 @@ app.get('/admin-order', function(req, res){
 
 
 
+app.get('/admin', function(req, res){
+  res.render('admin', {
+    // title: 'admin'
+  });
+});
+
+
+app.post('/login', function(req, res){
+  res.render('login', {
+    // title: 'admin'
+  });
+});
+
+
 app.get('/login', function(req, res){
   res.render('login', {
     title: 'login'
   });
 });
+
+
+
+
+
+
+
+
