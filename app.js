@@ -285,6 +285,25 @@ app.get('/admin', function(req, res){
 });
 
 
+app.get('/admin-goods', function(req, res){
+  con.query('SELECT * FROM goods', 
+  
+  function(error, result, fields){
+    if (error) reject(error);
+
+    res.render('admin-goods', {
+      title: 'Admin-goods',
+      goods: JSON.parse(JSON.stringify(result))
+    });
+  });
+});
+
+
+
+
+
+
+
 app.post('/login', function(req, res){
   con.query('SELECT * FROM user WHERE login="'+req.body.login + '" and password="'+req.body.password+'"',
   function(error, result, fields){

@@ -1,0 +1,16 @@
+extends index.pug
+block content
+
+  .maincontent
+    .maincontent__black-background
+    include side-menu
+
+    .container.category__list
+      each val, index in goods
+        li.category__item
+          a.item__title(href='/item/'+val['slug']) #{val['name']}
+          a.item__img-link(href="#")
+            img(src='/images/'+val['image'])
+          .item__cost $ #{val['cost'].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')}
+
+          button.btn.item__btn(data-goods_id=val['id']) Change

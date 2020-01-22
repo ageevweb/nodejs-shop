@@ -49,8 +49,12 @@ function ajaxGetGoodsInfo() {
 }
 
 function checkEmptyCart() {
+
   if(localStorage.getItem('cart') == null || localStorage.getItem('cart') == '{}' ){
     document.querySelector('.side-menu__cart-block').style.display = 'none';
+    if(location.pathname == "/order"){
+      location.href = "/"
+    }
   } else {
     document.querySelector('.side-menu__cart-block').style.display = 'block';
   }
