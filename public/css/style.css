@@ -1,7 +1,9 @@
 *{
   margin: 0;
   padding: 0;
-  font-family: 'Quicksand', sans-serif;
+  /* font-family: 'Quicksand', sans-serif; */
+  font-family: 'Andika', sans-serif;
+
   box-sizing: border-box;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -515,6 +517,7 @@ li{
 label{
   margin-bottom: 7px;
   color: darkgray;
+  display: block;
 }
 
 .form-input, textarea{
@@ -667,4 +670,33 @@ input[type="checkbox"]:checked + label::after {
 .item__btn:hover{
   box-shadow: none;
   border: 2px solid #000;
+}
+
+.maincontent> form{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+  background-color: white;
+  border-radius: 15px;
+  width: 300px;
+}
+
+.maincontent--pb0{
+  padding-bottom: 0;
+  background-color: black;
+}
+
+.form__elem{
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form__inp{
+  width: 100%;
+}
+
+.login-btn:hover{
+  color: #000;
 }

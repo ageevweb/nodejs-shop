@@ -1,9 +1,19 @@
+extends index.pug
+block content
 
-form.login-form(action="/login" method="POST")
-  label login
-  input#login(type="text" name="login" value="admin")
-  label password
-  input#password(type="password" name="password" value="123")
-  input(type="submit" value="LogIn")
+  .maincontent.maincontent--pb0
+    .maincontent__black-background
+    include side-menu
 
-//- script(src="js/login.js")
+    main.auth_video(id="trailer")
+      video(id="video" muted loop autoplay="autoplay" width="auto" height="100%" )
+        source(src="/video/video.mp4")
+
+    form(action="/login" method="POST")
+      label login 
+      input#login.form-input.login-form__inp(type="text" name="login" value="admin")
+      label password 
+      input#password.form-input.login-form__inp(type="password" name="password" value="123") 
+      input.btn.item__btn.login-btn(type="submit" value="LogIn")
+
+  script(src="js/login.js")

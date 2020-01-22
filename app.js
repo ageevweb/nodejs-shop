@@ -120,7 +120,7 @@ app.get('/item/*', function(req, res){
     if (error) reject(error);
 
     res.render('single', {
-      // title: result[0]['name'],
+      title: result[0]['name'],
       item: JSON.parse(JSON.stringify(result))
     });
   });
@@ -280,7 +280,7 @@ app.get('/admin-order', function(req, res){
 
 app.get('/admin', function(req, res){
   res.render('admin', {
-    title : "admin"
+    title : 'Admin'
   })
 });
 
@@ -313,7 +313,7 @@ app.post('/login', function(req, res){
 
 app.get('/login', function(req, res){
   res.render('login', {
-    title: 'login'
+    title: 'Log in'
   });
 });
 

@@ -1,7 +1,20 @@
-h1 Admin-panel
+extends index.pug
+block content
 
-ul
-  li
-    a(href="/admin-order") Order
-  li
-    a(href="admin-goods") Goods
+  .maincontent
+    .maincontent__black-background
+    include side-menu
+
+    h1 Admin-panel
+
+    ul
+      li
+        a(href="/admin-order") Order
+      li
+        a(href="admin-goods") Goods
+
+      script(src="js/admin.js")
+
+
+
+

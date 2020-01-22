@@ -1,3 +1,5 @@
+checkEmptyCart();
+
 let cart = {}
 
 
@@ -11,15 +13,7 @@ if(localStorage.getItem('cart')){
 }
 
 
-function addToCart(){
-  document.querySelector('.hamburger-menu').classList.add('rot');
-
-  function deleteAnimation() {
-    document.querySelector('.hamburger-menu').classList.remove('rot')
-  }
-  
-  setTimeout(deleteAnimation, 900);
-
+function addToCart(){ 
   let id = this.getAttribute('data-goods_id');
   if(cart[id]){
     cart[id]++
@@ -28,6 +22,9 @@ function addToCart(){
   }
   console.log(cart);
   ajaxGetGoodsInfo();
+
+  checkEmptyCart();
+
   document.querySelector('.wrapper').classList.toggle('side-menu-show');
 }
 
@@ -49,6 +46,14 @@ function ajaxGetGoodsInfo() {
     console.log(body);
     showCart(JSON.parse(body));
   })
+}
+
+function checkEmptyCart() {
+  if(localStorage.getItem('cart') == null || localStorage.getItem('cart') == '{}' ){
+    document.querySelector('.side-menu__cart-block').style.display = 'none';
+  } else {
+    document.querySelector('.side-menu__cart-block').style.display = 'block';
+  }
 }
 
 
@@ -110,6 +115,7 @@ function cartMinus(){
     delete(cart[id]);
   }
   ajaxGetGoodsInfo();
+  checkEmptyCart();
 }
 
 function updateLS(){

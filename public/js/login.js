@@ -1,3 +1,6 @@
+document.querySelector('.hamburger-menu').style.opacity = 0;
+
+
 function sendLogin(){
   fetch('/login', {
     method: 'POST',
@@ -6,13 +9,10 @@ function sendLogin(){
       'password' : document.querySelector('#password').value
     }),
     headers: {
-        'Accept' : 'application/json',
-        'Content-Type' : 'application/json'
+      'Accept' : 'application/json',
+      'Content-Type' : 'application/json'
     }
   })
-  // .then(function(response){
-    
-  // })
 }
 
 document.querySelector('.login-form').onsubmit = function(e){
