@@ -4,6 +4,12 @@ block content
   .maincontent
     .maincontent__black-background
     include side-menu
+
+    main.auth_video(id="trailer")
+      video(id="video" muted loop autoplay="autoplay" width="auto" height="400" )
+        source(src="/video/video.mp4")
+
+    
     
     
     each val2, index2 in cat
@@ -15,3 +21,6 @@ block content
           each val, index in goods
             if val2['id'] == val['category']
               include item
+
+
+              

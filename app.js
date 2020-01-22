@@ -139,7 +139,7 @@ app.post('/get-goods-info', function(req,res){
   // console.log(req.body);
 
   if(req.body.key.length != 0){
-    con.query('SELECT id,name,cost FROM goods WHERE id IN ('+req.body.key.join(',')+')', function(error, result, fields){
+    con.query('SELECT id, slug, name,cost FROM goods WHERE id IN ('+req.body.key.join(',')+')', function(error, result, fields){
       if (error) throw error;
       let goods = {};
       for(let i = 0; i<result.length; i++){

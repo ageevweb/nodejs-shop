@@ -28,7 +28,7 @@ function addToCart(){
   }
   console.log(cart);
   ajaxGetGoodsInfo();
-
+  document.querySelector('.wrapper').classList.toggle('side-menu-show');
 }
 
 
@@ -58,7 +58,7 @@ function showCart(data){
 
   for(let key in cart){
     out += `<div class="cart-item">
-              <a class="cart-item__title" href='/item?id=${data[key]['id']}'> ${data[key]['name']}</a>
+              <a class="cart-item__title" href='/item/${data[key]['slug']}'> ${data[key]['name']}</a>
               <div class="cart-item__row"> 
                 <div class="cart-item__left">
                   <div class="cart-item__minus" data-goods_id="${data[key]['id']}">
