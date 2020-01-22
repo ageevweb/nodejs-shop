@@ -1,6 +1,6 @@
 li.category__item
-  a.item__title(href='/item?id='+val['id']) #{val['name']}
+  a.item__title(href='/item/'+val['slug']) #{val['name']}
   a.item__img-link(href="#")
-    img(src='images/'+val['image'])
+    img(src='/images/'+val['image'])
   .item__cost $ #{val['cost'].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')} 
   button.item__btn.add-to-cart(data-goods_id=val['id']) add to cart

@@ -47,7 +47,7 @@ app.get('/', function(req, res){
   
   let cat = new Promise(function(resolve, reject){
     con.query(
-      "select id,name, cost, image, category from (select id,name,cost,image,category, if(if(@curr_category != category, @curr_category := category, '') != '', @k := 0, @k := @k + 1) as ind   from goods, ( select @curr_category := '' ) v ) goods where ind < 4", 
+      "select id, slug, name, cost, image, category from (select id, slug, name,cost,image,category, if(if(@curr_category != category, @curr_category := category, '') != '', @k := 0, @k := @k + 1) as ind   from goods, ( select @curr_category := '' ) v ) goods where ind < 4", 
       function(error, result){
         if (error) reject(error);
         resolve(result);
@@ -111,16 +111,16 @@ app.get('/category', function(req, res){
 
 
 // single-item page
-app.get('/item', function(req, res){
-  let itemId = req.query.id;
+app.get('/item/*', function(req, res){
+  // let itemId = req.query.id;
 
-  con.query('SELECT * FROM goods WHERE id='+itemId, 
+  con.query('SELECT * FROM goods WHERE slug="'+ req.params['0']+'"', 
   
   function(error, result, fields){
     if (error) reject(error);
 
     res.render('single', {
-      title: result[0]['name'],
+      // title: result[0]['name'],
       item: JSON.parse(JSON.stringify(result))
     });
   });
@@ -197,6 +197,7 @@ async function sendMail(data, result){
     <div>Address:  ${data.userAddress}</div> 
     <div>Email:  ${data.userEmail}</div> 
   `
+
   // console.log(res);
 
   let testAccount = await nodemailer.createTestAccount();
@@ -262,7 +263,7 @@ app.get('/admin-order', function(req, res){
       user_info.address as address
     FROM 
       shop_order
-    LEFT JOIN	
+    LEFT JOIN
       user_info
     ON shop_order.user_id = user_info.id ORDER BY id DESC`,
     function(error, result, fields){
