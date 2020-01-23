@@ -1,0 +1,56 @@
+.side-menu{
+  width: 400px;
+  min-height: 400px;
+  max-height: 75vh;
+  background-color: #f3f3f3;
+  padding: 30px;
+  border-radius: 0px 20px 20px 0;
+  position: absolute;
+  position: fixed;
+  top: 100px;
+  left: -400px;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  z-index: 20;
+  padding-right: 0;
+  transition: all ease .5s;
+
+  &__block{
+    margin-bottom: 25px;
+  }
+
+  &__title{
+    font-weight: 700;
+    font-size: 22px;
+    margin-bottom: 5px;
+  }
+
+  &__wrap{
+    max-height: 70vh;
+    overflow-y: auto;
+    padding-right: 30px;
+  }
+
+  &__close{
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    transform: rotate(45deg);
+
+    svg{
+      width: 40px;
+      height: 40px;
+      fill: #000;
+      cursor: pointer;
+    }
+  }
+
+  &__links{
+    li{
+      margin-bottom: 5px; 
+    }
+  }
+
+  .page-link{
+    margin-bottom: 5px; 
+  }
+}

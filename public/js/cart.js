@@ -2,10 +2,10 @@ checkEmptyCart();
 
 let cart = {}
 
-
 document.querySelectorAll('.add-to-cart').forEach(elem => {
   elem.onclick = addToCart;
 });
+
 
 if(localStorage.getItem('cart')){
   cart = JSON.parse(localStorage.getItem('cart'));
@@ -22,9 +22,7 @@ function addToCart(){
   }
   console.log(cart);
   ajaxGetGoodsInfo();
-
   checkEmptyCart();
-
   document.querySelector('.wrapper').classList.toggle('side-menu-show');
 }
 
@@ -49,7 +47,6 @@ function ajaxGetGoodsInfo() {
 }
 
 function checkEmptyCart() {
-
   if(localStorage.getItem('cart') == null || localStorage.getItem('cart') == '{}' ){
     document.querySelector('.side-menu__cart-block').style.display = 'none';
     if(location.pathname == "/order"){
@@ -113,7 +110,7 @@ function cartPlus(){
 
 function cartMinus(){
   let id = this.getAttribute('data-goods_id');
-  if(cart[id]-1 > 0){
+  if(cart[id] - 1 > 0){
     cart[id]--;
   } else {
     delete(cart[id]);

@@ -7,11 +7,13 @@ document.querySelector('#order-submit').onclick = function(e)  {
     let userAddress = document.querySelector('#order-address').value.trim();
 
     if(!document.querySelector('#checkbox1').checked){
-
+        alert('confirm checkbox!');
+        return false;
     }
 
     if(userName=='' || userEmail=='' || userPhone=='' || userAddress==''){
-
+        alert('fill all inputs!');
+        return false;
     }
 
     fetch('/finish-order', {
@@ -33,9 +35,9 @@ document.querySelector('#order-submit').onclick = function(e)  {
     })
     .then(function(body){
         if (body == 1){
-
+            alert('success')
         } else {
-
+            
         }
     })
 }

@@ -1,0 +1,52 @@
+.header{
+  background-color: #000;
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+  z-index: 20;
+
+  &__container{
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__info{
+    max-width: 240px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo{
+    font-size: 45px;
+    padding-left: 50px;
+    font-weight: 500;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .phone{
+    color: #fff;
+  }
+
+  .address{
+    color: #fff;
+    font-weight: 300;
+    font-size: 12px;
+    margin-top: 10px;
+  }
+}
+
+
+
+
+
+
+
+
+
+

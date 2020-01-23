@@ -9,3 +9,9 @@ main-page
   
 
 -order: input err
+
+-check unixtime in mysql
+
+
+"go" : "gulp && nodemon app.js" 
+

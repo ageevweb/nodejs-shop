@@ -195,10 +195,9 @@ async function sendMail(data, result){
     <div>Phone:  ${data.userPhone}</div> 
     <div>Name:  ${data.userName}</div> 
     <div>Address:  ${data.userAddress}</div> 
-    <div>Email:  ${data.userEmail}</div> 
-  `
+    <div>Email:  ${data.userEmail}</div>`
 
-  // console.log(res);
+  console.log(res);
 
   let testAccount = await nodemailer.createTestAccount();
 
@@ -248,6 +247,8 @@ function saveOrder(data, result) {
   });
 }
 
+
+
 app.get('/admin-order', function(req, res){
   con.query(`
     SELECT 
@@ -285,6 +286,7 @@ app.get('/admin', function(req, res){
 });
 
 
+
 app.get('/admin-goods', function(req, res){
   con.query('SELECT * FROM goods', 
   
@@ -297,10 +299,6 @@ app.get('/admin-goods', function(req, res){
     });
   });
 });
-
-
-
-
 
 
 
@@ -328,6 +326,7 @@ app.post('/login', function(req, res){
     };
   });
 });
+
 
 
 app.get('/login', function(req, res){
