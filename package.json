@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "gulp": "gulp",
-    "go" : "gulp && nodemon app.js" 
+    "go": "gulp && nodemon app.js"
   },
   "author": "andrey ageev",
   "license": "ISC",
@@ -14,6 +14,7 @@
     "cookie": "^0.4.0",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
+    "multer": "^1.4.2",
     "mysql": "^2.17.1",
     "nodemailer": "^6.4.2",
     "pug": "^2.0.3"

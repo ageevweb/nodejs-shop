@@ -9,8 +9,55 @@ app.set('view engine', 'pug');
 app.use(express.json());
 app.use(express.urlencoded());
 app.use(cookieParser());
+
+
+
+// upload IMG
+const multer  = require("multer");
+const storageConfig = multer.diskStorage({
+  destination: (req, file, cb) =>{
+    cb(null, "public/images");
+  },
+  filename: (req, file, cb) =>{
+    cb(null, file.originalname);
+  }
+});
+
+app.use(multer({storage:storageConfig}).single("filedata"));
+
+app.post("/upload", function (req, res, next) {
+ 
+  let filedata = req.file;
+  if(!filedata)
+    res.send("Ошибка при загрузке файла");
+  else
+    res.send("Файл загружен");
+});
+app.use(multer({storage:storageConfig}).single("filedata"));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 app.use(function (req, res, next) {
-  if(req.originalUrl == '/admin' || req.originalUrl == '/admi-order'){
+  if(req.originalUrl == '/admin' || req.originalUrl == '/admin-order'){
     admin(req, res, con, next);
   } else {
     next();
@@ -27,9 +74,18 @@ let mysql = require('mysql');
 let con = mysql.createPool({
   host: 'localhost',
   user: 'root',
-  password: 'password',
+  password: '',
   database: 'datalist'
 });
+
+
+// prod
+// let con = mysql.createPool({
+//   host: 'localhost',
+//   user: 'a59758_andrey',
+//   password: '1I328ZqSWp5xIqe8ybtE',
+//   database: 'a59758_proto-shop'
+// });
 
 
 // delete on prod
@@ -44,7 +100,7 @@ app.listen(3000, function(){
 
 // main page
 app.get('/', function(req, res){
-  
+
   let cat = new Promise(function(resolve, reject){
     con.query(
       "select id, slug, name, cost, image, category from (select id, slug, name,cost,image,category, if(if(@curr_category != category, @curr_category := category, '') != '', @k := 0, @k := @k + 1) as ind   from goods, ( select @curr_category := '' ) v ) goods where ind < 4", 
@@ -97,7 +153,6 @@ app.get('/category', function(req, res){
         if (error) reject(error);
         resolve(result);
       });
-
   });
 
   Promise.all([cat, goods]).then(function(value){
@@ -113,12 +168,10 @@ app.get('/category', function(req, res){
 // single-item page
 app.get('/item/*', function(req, res){
   // let itemId = req.query.id;
-
   con.query('SELECT * FROM goods WHERE slug="'+ req.params['0']+'"', 
   
   function(error, result, fields){
     if (error) reject(error);
-
     res.render('single', {
       title: result[0]['name'],
       item: JSON.parse(JSON.stringify(result))
@@ -137,12 +190,12 @@ app.post('/get-category-list', function(req,res){
 
 app.post('/get-goods-info', function(req,res){
   // console.log(req.body);
-
   if(req.body.key.length != 0){
     con.query('SELECT id, slug, name,cost FROM goods WHERE id IN ('+req.body.key.join(',')+')', function(error, result, fields){
       if (error) throw error;
       let goods = {};
-      for(let i = 0; i<result.length; i++){
+
+      for(let i = 0; i < result.length; i++){
         goods[result[i]['id']] = result[i];
       }
       res.json(goods); 
@@ -166,13 +219,17 @@ app.post('/finish-order', function(req,res){
   // console.log(req.body);
   if(req.body.key.length != 0){
 
-    let key = Object.keys(req.body.key)
+    let key = Object.keys(req.body.key);
 
     con.query('SELECT id,name,cost FROM goods WHERE id IN (' + key.join(',')+')', 
     function(error, result, fields){
       if (error) throw error;
+
+
+      // write in BD
       sendMail(req.body, result).catch(console.error);
       saveOrder(req.body, result);
+
       res.send('1');
     });
   } else {
@@ -180,8 +237,8 @@ app.post('/finish-order', function(req,res){
   }
 });
 
-async function sendMail(data, result){
 
+async function sendMail(data, result){
   let res = '<h2>Order from PrototypeShop</h2>';
   let total = 0;
 
@@ -190,12 +247,12 @@ async function sendMail(data, result){
     total += result[i]['cost'] * data.key[result[i]['id']];
   }
 
-  res += `
-    <div>Total:  $ ${total}</div> 
-    <div>Phone:  ${data.userPhone}</div> 
-    <div>Name:  ${data.userName}</div> 
-    <div>Address:  ${data.userAddress}</div> 
-    <div>Email:  ${data.userEmail}</div>`
+  res += `<div>Total:  $ ${total}</div> 
+          <div>Phone:  ${data.userPhone}</div> 
+          <div>Name:  ${data.userName}</div> 
+          <div>Address:  ${data.userAddress}</div> 
+          <div>Email:  ${data.userEmail}</div>
+          `
 
   console.log(res);
 
@@ -230,7 +287,8 @@ function saveOrder(data, result) {
   // result info about goods
 
   let sql;
-  sql = "INSERT INTO user_info (user_name, user_phone, user_email,address) VALUES ('" + data.userName + "', '" + data.userPhone + "', '" + data.userEmail + "','" + data.userAddress + "')";
+
+  sql = "INSERT INTO user_info (user_name, user_phone, user_email, address) VALUES ('" + data.userName + "', '" + data.userPhone + "', '" + data.userEmail + "','" + data.userAddress + "')";
   con.query(sql, function (error, resultQuery) {
     if (error) throw error;
     console.log("1 user record inserted");
@@ -267,6 +325,7 @@ app.get('/admin-order', function(req, res){
     LEFT JOIN
       user_info
     ON shop_order.user_id = user_info.id ORDER BY id DESC`,
+    
     function(error, result, fields){
       if (error) reject(error);
       res.render('admin-order', {
@@ -309,7 +368,7 @@ app.post('/login', function(req, res){
     // console.log(result.length);
     
     if(result.length == 0){
-      console.log('error user')
+      console.log('error user');
     } else {
       // enter user in assount
       result = JSON.parse(JSON.stringify(result));
@@ -319,6 +378,7 @@ app.post('/login', function(req, res){
 
       // write hash in db
       sql = "UPDATE user SET hash='"+ hash +"' WHERE id="+result[0]['id'];
+
       con.query(sql, function (error, resultQuery) {
         if (error) throw error;
         res.redirect('/admin');

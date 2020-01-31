@@ -1,4 +1,5 @@
 module.exports = function (req, res, con, next){
+  
   // console.log(req.cookies);
   // console.log(req.cookies.hash);
   // console.log(req.cookies.id);
@@ -9,10 +10,10 @@ module.exports = function (req, res, con, next){
   }
   con.query(
     'SELECT * FROM user WHERE id='+req.cookies.id + ' and hash="'+req.cookies.hash + '"',
+
     function(error, result, fields){
       if (error) reject(error);
       console.log(result);
-
       if(result.length == 0){
         console.log('error: user not found');
         res.redirect('/login');

@@ -1,6 +1,6 @@
 li.item
   a.item__title(href='/item/'+val['slug']) #{val['name']}
-  a.item__img-link(href="#")
+  a.item__img-link(href='/item/'+val['slug'])
     img(src='/images/'+val['image'])
   .item__cost $ #{val['cost'].toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$& ')}
 
@@ -12,3 +12,4 @@ li.item
         <path d="M38.2,70.7C32.4,71,28,75.8,28.2,81.5c0.2,5.5,4.7,9.9,10.2,9.9h0.2c5.7-0.3,10.2-5.1,9.9-10.8   C48.3,75.1,43.7,70.7,38.2,70.7z"/>
       </svg>
     .toCart__text add to cart
+    

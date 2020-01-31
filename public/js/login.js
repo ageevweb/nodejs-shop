@@ -15,6 +15,7 @@ function sendLogin(){
   })
 }
 
+
 document.querySelector('.login-form').onsubmit = function(e){
   e.preventDefault();
   sendLogin();

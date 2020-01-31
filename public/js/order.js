@@ -35,9 +35,9 @@ document.querySelector('#order-submit').onclick = function(e)  {
     })
     .then(function(body){
         if (body == 1){
-            alert('success')
+            alert('success');
         } else {
-            
+            alert('false! retry');
         }
     })
 }
